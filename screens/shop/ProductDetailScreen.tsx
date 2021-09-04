@@ -7,11 +7,12 @@ import {
    Button,
    StyleSheet
 } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Colors from '../../constants/Colors';
 
 import { RootState } from '../../redux/rootReducer';
+import * as cartActions from '../../redux/actions/cart';
 
 type ProductType = {
    description: string;
@@ -25,6 +26,8 @@ type ProductType = {
 const ProductDetailScreen = ({ route, navigation }: { route: any, navigation: any }) => {
    const { params } = route;
    const selectedProduct: ProductType | any = useSelector((state: RootState) => state.products.availableProducts.find((item: any) => item.id === params.productId));
+
+   const dispatch = useDispatch();
 
    React.useEffect(() => {
       if (params?.productTitle) {
@@ -51,7 +54,9 @@ const ProductDetailScreen = ({ route, navigation }: { route: any, navigation: an
       <ScrollView>
          <Image style={styles.image} source={{ uri: selectedProduct.imageUrl }} />
          <View style={styles.actions}>
-            <Button color={Colors.primary} title="Add to Cart" onPress={() => { }} />
+            <Button color={Colors.primary} title="Add to Cart" onPress={() => {
+               dispatch(cartActions.addToCart(selectedProduct));
+            }} />
          </View>
          <Text style={styles.price}>${selectedProduct.price.toFixed(2)}</Text>
          <Text style={styles.description}>{selectedProduct.description}</Text>

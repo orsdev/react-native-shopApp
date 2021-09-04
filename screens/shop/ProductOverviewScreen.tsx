@@ -1,10 +1,11 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { FlatList, Text, View } from 'react-native';
 
 import { RootState } from '../../redux/rootReducer';
 
 import ProductItem from '../../components/shop/ProductItem';
+import * as cartActions from '../../redux/actions/cart';
 
 type ProductType = {
    imageUrl: string;
@@ -16,6 +17,8 @@ const ProductOverviewScreen = ({ navigation }: {
    navigation: any
 }) => {
    const products: ProductType | object[] = useSelector((state: RootState) => state.products.availableProducts);
+
+   const dispatch = useDispatch();
 
    if (products.length === 0) {
       return (<View style={{
@@ -45,7 +48,9 @@ const ProductOverviewScreen = ({ navigation }: {
                            productTitle: itemData.item.title
                         })
                      }}
-                     onAddToCart={() => { }}
+                     onAddToCart={() => {
+                        dispatch(cartActions.addToCart(itemData.item));
+                     }}
                   />
                )
             }}
