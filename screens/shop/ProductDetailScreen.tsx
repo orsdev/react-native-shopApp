@@ -12,7 +12,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Colors from '../../constants/Colors';
 
 import { RootState } from '../../redux/rootReducer';
-import * as cartActions from '../../redux/actions/cart';
+import * as cartActions from '../../redux/actions/cart.action';
 
 type ProductType = {
    description: string;
