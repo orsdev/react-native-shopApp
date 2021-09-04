@@ -6,7 +6,7 @@ export interface InitialStateProps {
 }
 
 const initialState: InitialStateProps = {
-   availableProducts: [],
+   availableProducts: PRODUCTS.filter((prod: any) => prod.ownerId == 'u1'),
    userProducts: PRODUCTS.filter((prod: any) => prod.ownerId == 'u1')
 };
 
