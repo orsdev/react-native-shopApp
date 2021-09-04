@@ -5,7 +5,9 @@ import { FlatList, Text, View } from 'react-native';
 import { RootState } from '../../redux/rootReducer';
 
 import ProductItem from '../../components/shop/ProductItem';
-import * as cartActions from '../../redux/actions/cart';
+import * as cartActions from '../../redux/actions/cart.action';
+import { CustomHeader } from '../../components/ui/HeaderButton';
+import { Item } from 'react-navigation-header-buttons';
 
 type ProductType = {
    imageUrl: string;
@@ -19,6 +21,20 @@ const ProductOverviewScreen = ({ navigation }: {
    const products: ProductType | object[] = useSelector((state: RootState) => state.products.availableProducts);
 
    const dispatch = useDispatch();
+
+
+   React.useLayoutEffect(() => {
+      navigation.setOptions({
+
+         headerRight: () => (
+            <CustomHeader>
+               <Item title="Cart" iconName="cart" onPress={() => {
+                  navigation.navigate('Cart')
+               }} />
+            </CustomHeader>
+         ),
+      });
+   }, [navigation])
 
    if (products.length === 0) {
       return (<View style={{
