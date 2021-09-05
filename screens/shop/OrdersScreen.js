@@ -27,11 +27,6 @@ const OrdersScreen = props => {
          keyExtractor={item => item.id}
          renderItem={itemData => <Text>{itemData.item.totalAmount}</Text>}
       />
-      // <Text style={{
-      //    fontSize: 30,
-      //    textAlign: 'center',
-      //    padding: 20
-      // }}>Orders</Text>
    );
 };
 
