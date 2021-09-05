@@ -2,6 +2,9 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
    createDrawerNavigator,
+   DrawerContentScrollView,
+   DrawerItemList,
+   DrawerItem,
 } from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native';
 
@@ -34,7 +37,8 @@ const MainNavigation = () => {
             name="ProductOverview"
             component={ProductOverviewScreen}
             options={{
-               title: 'All Products'
+               title: 'All Products',
+               headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primary
             }} />
          <Stack.Screen
             name="ProductDetail"
@@ -47,10 +51,22 @@ const MainNavigation = () => {
 }
 
 
+function CustomDrawerContent(props) {
+   return (
+      <DrawerContentScrollView {...props}>
+         <DrawerItemList {...props} />
+         <DrawerItem label="Help" onPress={() => alert('Link to help')} />
+      </DrawerContentScrollView>
+   );
+}
+
+
+
 const DrawerNavigation = () => {
 
    return (
-      <Drawer.Navigator>
+      <Drawer.Navigator
+         drawerContent={(props) => <CustomDrawerContent {...props} />}>
          <Drawer.Screen
             name="Home"
             component={MainNavigation}
