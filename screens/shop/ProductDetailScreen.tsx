@@ -25,15 +25,6 @@ type ProductType = {
 
 const ProductDetailScreen = ({ route, navigation }: { route: any, navigation: any }) => {
    const { params } = route;
-   const selectedProduct: ProductType | any = useSelector((state: RootState) => state.products.availableProducts.find((item: any) => item.id === params.productId));
-
-   const dispatch = useDispatch();
-
-   React.useEffect(() => {
-      if (params?.productTitle) {
-         navigation.setOptions({ title: params.productTitle })
-      }
-   }, [navigation]);
 
    if (!params?.productId) {
       return (
@@ -49,6 +40,17 @@ const ProductDetailScreen = ({ route, navigation }: { route: any, navigation: an
          </View>
       )
    }
+
+   const selectedProduct: ProductType | any = useSelector((state: RootState) => state.products.availableProducts.find((item: any) => item.id === params.productId));
+
+   const dispatch = useDispatch();
+
+   React.useEffect(() => {
+      if (params?.productTitle) {
+         navigation.setOptions({ title: params.productTitle })
+      }
+   }, [navigation]);
+
 
    return (
       <ScrollView>
