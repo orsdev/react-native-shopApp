@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { FlatList, Text, View } from 'react-native';
+import { DrawerActions } from '@react-navigation/native';
 
 import { RootState } from '../../redux/rootReducer';
 
@@ -23,9 +24,15 @@ const ProductOverviewScreen = ({ navigation }: {
    const dispatch = useDispatch();
 
 
-   React.useLayoutEffect(() => {
+   React.useEffect(() => {
       navigation.setOptions({
-
+         headerLeft: () => (
+            <CustomHeader>
+               <Item title="Menu" iconName="menu" onPress={() => {
+                  navigation.dispatch(DrawerActions.openDrawer());
+               }} />
+            </CustomHeader>
+         ),
          headerRight: () => (
             <CustomHeader>
                <Item title="Cart" iconName="cart" onPress={() => {
